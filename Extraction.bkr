@@ -1,0 +1,564 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "htmlmixed"
+                }
+            }
+        },
+        {
+            "name": "TeX",
+            "plugin": "TeX",
+            "view": {
+                "cm": {
+                    "mode": "stex"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            }
+        },
+        {
+            "name": "IPython",
+            "plugin": "IPython",
+            "imports": "",
+            "supplementalClassPath": "",
+            "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n",
+            "view": {
+                "cm": {
+                    "mode": "python"
+                }
+            }
+        }
+    ],
+    "cells": [
+        {
+            "id": "code6tFkUa",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#import statements",
+                    "import string",
+                    "import math",
+                    "from collections import Counter as ct",
+                    "from nltk.tokenize import word_tokenize as wordTok, sent_tokenize as sentTok",
+                    "from nltk.tag import pos_tag",
+                    "from nltk import ne_chunk_sents as chunk",
+                    "import nltk"
+                ]
+            },
+            "output": {
+                "selectedType": "Hidden",
+                "state": {},
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 315
+            },
+            "evaluatorReader": true,
+            "lineCount": 8
+        },
+        {
+            "id": "codeMLT3mE",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#function to remove problem characters",
+                    "def removeNonAscii(text):",
+                    "    return ''.join(i for i in text if ord(i)<128)"
+                ]
+            },
+            "output": {
+                "selectedType": "Hidden",
+                "state": {},
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 274
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "code7h2IRi",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#open, read, remove problem characters, remove punctuation for tokenization",
+                    "teslaSummary = removeNonAscii(open(",
+                    "        \"D:\\Google Drive\\Grad School\\UIC\\MS-MIS\\IDS566\\Assignment4\\TeslaSummary1.txt\", \"r\").read())",
+                    "NYTimes = removeNonAscii(open(",
+                    "        \"D:\\Google Drive\\Grad School\\UIC\\MS-MIS\\IDS566\\Assignment4\\NYTimes.txt\", \"r\").read())",
+                    "ESPN = removeNonAscii(open(",
+                    "        \"D:\\Google Drive\\Grad School\\UIC\\MS-MIS\\IDS566\\Assignment4\\ESPN.txt\", \"r\").read())",
+                    "#print teslaSummary"
+                ]
+            },
+            "output": {
+                "selectedType": "Hidden",
+                "state": {},
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 283
+            },
+            "evaluatorReader": true,
+            "lineCount": 8
+        },
+        {
+            "id": "codeMREuZk",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "#apply sentence tokenization",
+                    "teslaSummarySentTok = sentTok(teslaSummary)",
+                    "NYTimesSentTok = sentTok(NYTimes)",
+                    "ESPNSentTok = sentTok(ESPN)",
+                    "#print teslaSummarySentTok"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 282
+            },
+            "evaluatorReader": true,
+            "lineCount": 5
+        },
+        {
+            "id": "codekKKIVL",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#tokenize the the sentences",
+                    "teslaSummaryTok = [wordTok(sentence) for sentence in teslaSummarySentTok]",
+                    "NYTimesTok = [wordTok(sentence) for sentence in teslaSummarySentTok]",
+                    "ESPNTok = [wordTok(sentence) for sentence in teslaSummarySentTok]",
+                    "#print teslaSummaryTok"
+                ]
+            },
+            "output": {
+                "selectedType": "Hidden",
+                "state": {},
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 291
+            },
+            "evaluatorReader": true,
+            "lineCount": 5
+        },
+        {
+            "id": "codeJ8yRjW",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#tag the tokens",
+                    "teslaSummaryPOS = [pos_tag(sentence) for sentence in teslaSummaryTok]",
+                    "NYTimesPOS = [pos_tag(sentence) for sentence in NYTimesTok]",
+                    "ESPNPOS = [pos_tag(sentence) for sentence in ESPNTok]",
+                    "#print teslaSummaryPOS"
+                ]
+            },
+            "output": {
+                "selectedType": "Hidden",
+                "state": {},
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 56631
+            },
+            "evaluatorReader": true,
+            "lineCount": 5
+        },
+        {
+            "id": "codecBoJjH",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "def extract_tags(t):",
+                    "    entity = []",
+                    "    # extract tags from each item in chunked_sentences",
+                    "    for child in t:",
+                    "        if type(child) == nltk.tree.Tree:  # check type to see if it is a tree",
+                    "            entity.extend(extract_tags(child))",
+                    "        else:",
+                    "            entity.append(child)",
+                    "    return entity"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 283
+            },
+            "evaluatorReader": true,
+            "lineCount": 9
+        },
+        {
+            "id": "codex6i3n6",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "#chunk the tagged sentences",
+                    "teslaSummaryChunk = chunk(teslaSummaryPOS, binary=True)",
+                    "NYTimesChunk = chunk(NYTimesPOS, binary=True)",
+                    "ESPNChunk = chunk(ESPNPOS, binary=True)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 304
+            },
+            "evaluatorReader": true,
+            "lineCount": 4
+        },
+        {
+            "id": "codeKqoWAf",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "",
+                    "teslaSummaryChunk = extract_tags(teslaSummaryChunk)",
+                    "NYTimesChunk = extract_tags(NYTimesChunk)",
+                    "ESPNChunk = extract_tags(ESPNChunk)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 436
+            },
+            "evaluatorReader": true,
+            "lineCount": 4
+        },
+        {
+            "id": "codehpqlKR",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "print teslaSummaryChunk"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "[('Tesla', 'NNP'), ('Motors', 'NNP'), (',', ','), ('Inc.', 'NNP'), ('(', '('), ('TSLA', 'NNP'), (':', ':'), ('NNM', 'NNP'), (';', ':'), ('$', '$'), ('29.48', 'CD'), (')', ')'), ('Sell', 'NNP'), ('|', 'NNP'), ('Target', 'NNP'), (':', ':'), ('$', '$'), ('19', 'CD'), ('May', 'NNP'), ('27', 'CD'), (',', ','), ('2011', 'CD'), ('Carter', 'NNP'), ('Driscoll', 'NNP'), (',', ','), ('CFA', 'NNP'), ('/', 'NNP'), ('973-821-4330', 'CD'), ('/', 'NNP'), ('carter', 'NN'), ('@', 'NNP'), ('capstoneinvestments.com', 'NN'), ('Company', 'NNP'), ('Statistics', 'NNPS'), ('12-month', 'JJ'), ('Price', 'NNP'), ('Target', 'NN'), (':', ':'), ('$', '$'), ('19', 'CD'), ('Current', 'NNP'), ('Price', 'NN'), (':', ':'), ('$', '$'), ('29.48', 'CD'), ('Shares', 'NNP'), ('Outstanding', 'NNP'), ('(', '('), ('M', 'NNP'), (')', ')'), (':', ':'), ('95.2', 'CD'), ('Institutional', 'NNP'), ('Holdings', 'NNS'), (':', ':'), ('19', 'CD'), ('%', 'NN'), ('Market', 'NNP'), ('Cap', 'NNP'), ('(', '('), ('M', 'NNP'), (')', ')'), (':', ':'), ('$', '$'), ('2,806.1', 'CD'), ('EV', 'NNP'), ('(', '('), ('M', 'NNP'), (')', ')'), (':', ':'), ('$', '$'), ('2,804.8', 'CD'), ('EV/EBITDA', 'NNP'), (':', ':'), ('NM', 'NNP'), ('52-wk', 'JJ'), ('Range', 'NNP'), (':', ':'), ('$', '$'), ('14.98-', 'JJ'), ('$', '$'), ('36.42', 'CD'), ('Avg', 'NNP'), ('.', '.'), ('Daily', 'JJ'), ('Vol', 'NNP'), ('.', '.'), ('(', '('), ('000', 'CD'), (')', ')'), (':', ':'), ('1,217', 'CD'), ('Dividend', 'NN'), (':', ':'), ('NA', 'NNP'), ('Price/Book', 'NNP'), ('Value', 'NNP'), (':', ':'), ('16.7x', 'CD'), ('Book', 'NNP'), ('Value/sh', 'NNP'), (':', ':'), ('$', '$'), ('1.76', 'CD'), ('Financials', 'NNP'), ('Total', 'NNP'), ('(', '('), ('$', '$'), ('3.04', 'CD'), (')', ')'), ('A', 'NNP'), ('(', '('), ('$', '$'), ('2.01', 'CD'), (')', ')'), ('E', 'NN'), ('(', '('), ('$', '$'), ('1.59', 'CD'), (')', ')'), ('Company', 'NN'), ('Description', 'NNP'), ('Founded', 'NNP'), ('in', 'IN'), ('2003', 'CD'), ('and', 'CC'), ('headquartered', 'VBD'), ('in', 'IN'), ('Palo', 'NNP'), ('Alto', 'NNP'), (',', ','), ('CA', 'NNP'), (',', ','), ('Tesla', 'NNP'), ('Motors', 'NNP'), ('designs', 'VBZ'), (',', ','), ('manufactures', 'NNS'), ('and', 'CC'), ('sells', 'VBZ'), ('high', 'JJ'), ('performance', 'NN'), ('electric', 'JJ'), ('vehicles', 'NNS'), ('(', '('), ('EV', 'NNP'), (')', ')'), ('and', 'CC'), ('electric', 'JJ'), ('powertrain', 'NN'), ('technology', 'NN'), ('including', 'VBG'), ('battery', 'NN'), ('packs', 'NNS'), ('.', '.'), ('Launched', 'VBN'), ('in', 'IN'), ('2008', 'CD'), (',', ','), ('Tesla', 'NNP'), (\"'s\", 'POS'), ('Roadster', 'NNP'), ('was', 'VBD'), ('the', 'DT'), ('first', 'JJ'), ('commercial', 'JJ'), ('EV', 'NN'), ('that', 'WDT'), ('complied', 'VBD'), ('with', 'IN'), ('federal', 'JJ'), ('standards', 'NNS'), ('with', 'IN'), ('~', 'JJ'), ('1,650', 'CD'), ('vehicles', 'NNS'), ('sold', 'VBN'), ('through', 'IN'), ('1Q11', 'CD'), ('.', '.'), ('Tesla', 'NNP'), (\"'s\", 'POS'), ('next-generation', 'NN'), ('EV', 'NNP'), ('called', 'VBD'), ('the', 'DT'), ('Model', 'NNP'), ('S', 'NNP'), ('is', 'VBZ'), ('set', 'VBN'), ('to', 'TO'), ('launch', 'VB'), ('in', 'IN'), ('mid-2012', 'JJ'), ('with', 'IN'), ('extended', 'JJ'), ('range', 'NN'), ('features', 'NNS'), ('.', '.'), ('The', 'DT'), ('company', 'NN'), ('also', 'RB'), ('sells', 'VBZ'), ('battery', 'NN'), ('packs', 'NNS'), ('to', 'TO'), ('Daimler', 'NNP'), ('for', 'IN'), ('use', 'NN'), ('in', 'IN'), ('their', 'PRP$'), ('smart', 'JJ'), ('and', 'CC'), ('A-class', 'NNP'), ('EVs', 'NNP'), ('and', 'CC'), ('recently', 'RB'), ('agreed', 'VBD'), ('to', 'TO'), ('jointly', 'RB'), ('develop', 'VB'), ('batteries', 'NNS'), ('for', 'IN'), ('Toyota', 'NNP'), (\"'s\", 'POS'), ('RAV4', 'NNP'), ('model', 'NN'), ('.', '.'), ('TSLA', 'NN'), (':', ':'), ('THE', 'DT'), ('STORY', 'NNP'), ('CHANGES', 'NNP'), (';', ':'), ('SELL', 'NNP'), ('Capital', 'NNP'), ('raise', 'NN'), ('to', 'TO'), ('meet', 'VB'), ('rising', 'JJ'), ('capital', 'NN'), ('needs', 'NNS'), ('.', '.'), ('As', 'IN'), ('expected', 'VBN'), ('Tesla', 'NNP'), ('announced', 'VBD'), ('it', 'PRP'), ('would', 'MD'), ('seek', 'VB'), ('to', 'TO'), ('sell', 'VB'), ('5.3M', 'CD'), ('shares', 'NNS'), ('(', '('), ('~6.1M', 'FW'), ('with', 'IN'), ('over', 'IN'), ('allotment', 'NN'), (')', ')'), ('in', 'IN'), ('a', 'DT'), ('secondary', 'JJ'), ('offering', 'NN'), ('.', '.'), ('Concurrently', 'RB'), (',', ','), ('CEO', 'NNP'), ('Elon', 'NNP'), ('Musk', 'NNP'), ('will', 'MD'), ('invest', 'VB'), ('~', 'RB'), ('$', '$'), ('40M', 'CD'), ('in', 'IN'), ('a', 'DT'), ('private', 'JJ'), ('placement', 'NN'), ('of', 'IN'), ('1.5M', 'CD'), ('shares', 'NNS'), ('and', 'CC'), ('Daimler', 'NNP'), ('will', 'MD'), ('add', 'VB'), ('another', 'DT'), ('~', 'JJ'), ('$', '$'), ('15-17M', 'CD'), ('from', 'IN'), ('~577K', 'JJ'), ('shares', 'NNS'), ('(', '('), ('645K', 'CD'), ('shares', 'NNS'), ('with', 'IN'), ('over', 'IN'), ('allotment', 'NN'), (')', ')'), (',', ','), ('which', 'WDT'), ('could', 'MD'), ('raise', 'VB'), ('as', 'RB'), ('much', 'JJ'), ('as', 'IN'), ('~', 'JJ'), ('$', '$'), ('243M', 'CD'), ('at', 'IN'), ('yesterdays', 'NNS'), ('closing', 'VBG'), ('price', 'NN'), ('of', 'IN'), ('$', '$'), ('29.48', 'CD'), ('.', '.'), ('A', 'DT'), ('successful', 'JJ'), ('raise', 'NN'), ('with', 'IN'), ('over', 'IN'), ('allotment', 'NN'), ('would', 'MD'), ('dilute', 'VB'), ('the', 'DT'), ('shares', 'NNS'), ('by', 'IN'), ('~8', 'NNP'), ('%', 'NN'), ('but', 'CC'), ('with', 'IN'), ('negative', 'JJ'), ('earnings', 'NNS'), ('the', 'DT'), ('dilution', 'NN'), ('lowers', 'VBZ'), ('our', 'PRP$'), ('forecasted', 'JJ'), ('net', 'JJ'), ('loss', 'NN'), ('for', 'IN'), ('2011', 'CD'), ('.', '.'), ('The', 'DT'), ('story', 'NN'), ('changes', 'NNS'), ('.', '.'), ('As', 'IN'), ('we', 'PRP'), ('discussed', 'VBD'), ('before', 'IN'), ('the', 'DT'), ('1Q11', 'CD'), ('earnings', 'NNS'), ('call', 'NN'), (',', ','), ('we', 'PRP'), ('predicted', 'VBD'), ('the', 'DT'), ('secondary', 'JJ'), ('would', 'MD'), ('come', 'VB'), ('sooner', 'RB'), ('rather', 'RB'), ('than', 'IN'), ('late', 'RB'), ('2H11', 'CD'), ('as', 'IN'), ('Teslas', 'NNP'), ('strategy', 'NN'), ('has', 'VBZ'), ('shifted', 'VBN'), ('towards', 'NNS'), ('selling', 'VBG'), ('more', 'JJR'), ('mass', 'NN'), ('market', 'NN'), ('vehicle', 'NN'), ('(', '('), ('Model', 'NNP'), ('X', 'NNP'), (')', ')'), ('likely', 'RB'), ('at', 'IN'), ('a', 'DT'), ('lower', 'JJR'), ('price', 'NN'), ('point', 'NN'), ('.', '.'), ('Tesla', 'NNP'), ('hopes', 'VBZ'), ('to', 'TO'), ('introduce', 'VB'), ('a', 'DT'), ('prototype', 'NN'), ('by', 'IN'), ('YE11', 'NNP'), ('.', '.'), ('We', 'PRP'), ('believe', 'VBP'), ('Tesla', 'NNP'), ('recognizes', 'VBZ'), ('the', 'DT'), ('limitations', 'NNS'), ('of', 'IN'), ('selling', 'VBG'), ('one', 'CD'), ('model', 'NN'), ('aimed', 'VBD'), ('a', 'DT'), ('niche', 'JJ'), ('luxury', 'NN'), ('market', 'NN'), ('and', 'CC'), ('smartly', 'RB'), ('took', 'VBD'), ('advantage', 'NN'), ('of', 'IN'), ('market', 'NN'), ('strength', 'NN'), ('to', 'TO'), ('tap', 'VB'), ('the', 'DT'), ('capital', 'NN'), ('markets', 'NNS'), ('for', 'IN'), ('its', 'PRP$'), ('growing', 'VBG'), ('capital', 'NN'), ('needs', 'NNS'), ('.', '.'), ('Raising', 'VBG'), ('capex', 'JJ'), ('forecasts', 'NNS'), ('for', 'IN'), ('2011-2013', 'JJ'), ('.', '.'), ('We', 'PRP'), ('have', 'VBP'), ('increased', 'VBN'), ('our', 'PRP$'), ('forecasted', 'JJ'), ('capex', 'NN'), ('for', 'IN'), ('2011-2013', 'JJ'), (',', ','), ('by', 'IN'), ('$', '$'), ('50M', 'CD'), ('to', 'TO'), ('$', '$'), ('250M', 'CD'), ('in', 'IN'), ('2011', 'CD'), ('and', 'CC'), ('by', 'IN'), ('$', '$'), ('120M', 'CD'), ('in', 'IN'), ('2012', 'CD'), ('to', 'TO'), ('$', '$'), ('325M', 'CD'), ('and', 'CC'), ('by', 'IN'), ('$', '$'), ('130M', 'CD'), ('to', 'TO'), ('$', '$'), ('340M', 'CD'), ('in', 'IN'), ('2013', 'CD'), ('.', '.'), ('We', 'PRP'), ('are', 'VBP'), ('still', 'RB'), ('not', 'RB'), ('convinced', 'JJ'), ('Tesla', 'NNP'), ('has', 'VBZ'), ('sufficient', 'JJ'), ('capital', 'NN'), ('to', 'TO'), ('fund', 'VB'), ('development', 'NN'), ('of', 'IN'), ('both', 'DT'), ('cars', 'NNS'), ('into', 'IN'), ('mass', 'NN'), ('production', 'NN'), ('but', 'CC'), ('we', 'PRP'), ('too', 'RB'), ('would', 'MD'), ('take', 'VB'), ('the', 'DT'), ('money', 'NN'), ('if', 'IN'), ('it', 'PRP'), ('was', 'VBD'), ('available', 'JJ'), ('.', '.'), ('We', 'PRP'), ('continue', 'VBP'), ('to', 'TO'), ('believe', 'VB'), ('the', 'DT'), ('secondary', 'JJ'), ('is', 'VBZ'), ('not', 'RB'), ('just', 'RB'), ('for', 'IN'), ('the', 'DT'), ('Model', 'NNP'), ('X', 'NNP'), ('development', 'NN'), ('but', 'CC'), ('for', 'IN'), ('higher', 'JJR'), ('than', 'IN'), ('expected', 'VBN'), ('production', 'NN'), ('and', 'CC'), ('design', 'NN'), ('costs', 'NNS'), ('along', 'IN'), ('with', 'IN'), ('greater', 'JJR'), ('future', 'NN'), ('marketing', 'NN'), ('spend', 'NN'), ('.', '.'), ('We', 'PRP'), ('still', 'RB'), ('expect', 'VBP'), ('the', 'DT'), ('Model', 'NNP'), ('S', 'NNP'), ('could', 'MD'), ('be', 'VB'), ('delayed', 'VBN'), ('3-6', 'JJ'), ('months', 'NNS'), ('but', 'CC'), ('the', 'DT'), ('story', 'NN'), ('has', 'VBZ'), ('shifted', 'VBN'), ('to', 'TO'), ('diminish', 'VB'), ('that', 'DT'), ('potential', 'JJ'), ('negative', 'NN'), ('.', '.'), ('Annual', 'JJ'), ('meeting', 'NN'), ('on', 'IN'), ('June', 'NNP'), ('1', 'CD'), ('certain', 'JJ'), ('to', 'TO'), ('be', 'VB'), ('positive', 'JJ'), (';', ':'), ('SELL', 'NNP'), ('into', 'IN'), ('strength', 'NN'), ('.', '.'), ('We', 'PRP'), ('believe', 'VBP'), ('the', 'DT'), ('upcoming', 'JJ'), ('annual', 'JJ'), ('shareholders', 'NNS'), ('meeting', 'VBG'), ('on', 'IN'), ('6/1', 'CD'), ('could', 'MD'), ('provide', 'VB'), ('a', 'DT'), ('near-term', 'JJ'), ('boost', 'NN'), ('as', 'IN'), ('Tesla', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('stock', 'NN'), ('investors', 'NNS'), ('(', '('), ('especially', 'RB'), ('retail', 'VBP'), (')', ')'), ('want', 'VBP'), ('to', 'TO'), ('believe', 'VB'), ('will', 'MD'), ('be', 'VB'), ('successful', 'JJ'), ('its', 'PRP$'), ('green', 'JJ'), (',', ','), ('the', 'DT'), ('auto', 'NN'), ('prototypes', 'NNS'), ('are', 'VBP'), ('sexy', 'JJ'), ('and', 'CC'), ('Mr.', 'NNP'), ('Musk', 'NNP'), ('is', 'VBZ'), ('a', 'DT'), ('successful', 'JJ'), ('entrepreneur', 'NN'), ('.', '.'), ('However', 'RB'), (',', ','), ('whispered', 'VBD'), ('comparisons', 'NNS'), ('of', 'IN'), ('Tesla', 'NNP'), ('to', 'TO'), ('Apple', 'NNP'), ('are', 'VBP'), ('absurdly', 'RB'), ('premature', 'JJ'), ('.', '.'), ('The', 'DT'), ('new', 'JJ'), ('story', 'NN'), ('pits', 'NNS'), ('Tesla', 'NNP'), ('directly', 'RB'), ('against', 'IN'), ('the', 'DT'), ('other', 'JJ'), ('auto', 'NN'), ('OEMs', 'IN'), ('that', 'DT'), ('can', 'MD'), ('count', 'VB'), ('on', 'IN'), ('far', 'RB'), ('superior', 'JJ'), ('supplier', 'JJR'), ('leverage', 'NN'), (',', ','), ('balance', 'NN'), ('sheets', 'NNS'), (',', ','), ('brands', 'NNS'), (',', ','), ('reach', 'NN'), ('and', 'CC'), ('automobile', 'NN'), ('knowledge', 'NN'), ('.', '.'), ('The', 'DT'), ('niche', 'JJ'), ('luxury', 'NN'), ('story', 'NN'), ('is', 'VBZ'), ('gone', 'VBN'), ('.', '.'), ('We', 'PRP'), ('would', 'MD'), ('use', 'VB'), ('the', 'DT'), ('anticipated', 'JJ'), ('strength', 'NN'), ('from', 'IN'), ('next', 'JJ'), ('weeks', 'NNS'), ('meeting', 'NN'), ('to', 'TO'), ('exit', 'VB'), ('long', 'JJ'), ('positions', 'NNS'), ('and/or', 'VBP'), ('initiate', 'JJ'), ('short', 'JJ'), ('positions', 'NNS'), ('.', '.'), ('5', 'CD')]\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "F704F9D3A660493B8BDE2B774D0F085B",
+                "elapsedTime": 180,
+                "height": 755
+            },
+            "evaluatorReader": true,
+            "lineCount": 1
+        },
+        {
+            "id": "codeA8Hj0B",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#declare the list and dictionary variable that are about to be used",
+                    "teslaSummaryTags = []",
+                    "NYTimesTags = []",
+                    "ESPNTags = []",
+                    "#teslaSumTagCount = {}",
+                    "#NYTimesTagCount = {}",
+                    "#ESPNTagCount = {}",
+                    "teslaSubLinearNorm = {}",
+                    "NYTimesSubLinearNorm = {}",
+                    "ESPNSubLinearNorm = {}"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "code2DuQoa",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#pull out only the tags, leave the words behind",
+                    "x = 0",
+                    "y = 0",
+                    "z = 0",
+                    "for i in teslaSummaryPOS:",
+                    "    teslaSummaryTags.append(teslaSummaryPOS[x][1])",
+                    "    x += 1",
+                    "for i in NYTimesPOS:",
+                    "    NYTimesTags.append(NYTimesPOS[y][1])",
+                    "    y += 1",
+                    "for i in ESPNPOS:",
+                    "    ESPNTags.append(ESPNPOS[z][1])",
+                    "    z +=1"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeX7Do8s",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#count the tags",
+                    "teslaSumTagCount = ct(teslaSummaryTags)",
+                    "NYTimesTagCount = ct(NYTimesTags)",
+                    "ESPNTagCount = ct(ESPNTags)"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeTNOzoc",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#sublinear normalization",
+                    "for key in teslaSumTagCount:",
+                    "    x = teslaSumTagCount[key]",
+                    "    if x > 0:",
+                    "        teslaSubLinearNorm[key] =  1 + math.log(x)",
+                    "for key in NYTimesTagCount:",
+                    "    x = NYTimesTagCount[key]",
+                    "    if x > 0:",
+                    "        NYTimesSubLinearNorm[key] =  1 + math.log(x)",
+                    "for key in ESPNTagCount:",
+                    "    x = ESPNTagCount[key]",
+                    "    if x > 0:",
+                    "        ESPNSubLinearNorm[key] =  1 + math.log(x)"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeBTMRLB",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#intersections",
+                    "tesNYIntersection = {}",
+                    "for item in teslaSubLinearNorm:",
+                    "    if item in NYTimesSubLinearNorm:",
+                    "        tesNYIntersection[item] = teslaSubLinearNorm[item] + NYTimesSubLinearNorm[item]",
+                    "",
+                    "tesESPNIntersection = {}",
+                    "for item in teslaSubLinearNorm:",
+                    "    if item in ESPNSubLinearNorm:",
+                    "        tesESPNIntersection[item] = teslaSubLinearNorm[item] + ESPNSubLinearNorm[item]",
+                    "",
+                    "NYESPNIntersection = {}",
+                    "for item in NYTimesSubLinearNorm:",
+                    "    if item in ESPNSubLinearNorm:",
+                    "        NYESPNIntersection[item] = NYTimesSubLinearNorm[item] + ESPNSubLinearNorm[item]"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeKIihsa",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#unions - I'm sure there is a more efficient way to do this but I don't know what it is",
+                    "tesNYUnion = {}",
+                    "for item in teslaSubLinearNorm:",
+                    "    if item in NYTimesSubLinearNorm:",
+                    "        tesNYUnion[item] = teslaSubLinearNorm[item] + NYTimesSubLinearNorm[item]",
+                    "    else:",
+                    "        tesNYUnion[item] = teslaSubLinearNorm[item]",
+                    "for item in NYTimesSubLinearNorm:",
+                    "    if item not in teslaSubLinearNorm:",
+                    "        tesNYUnion[item] = NYTimesSubLinearNorm[item]",
+                    "        ",
+                    "tesESPNUnion = {}",
+                    "for item in teslaSubLinearNorm:",
+                    "    if item in ESPNSubLinearNorm:",
+                    "        tesESPNUnion[item] = teslaSubLinearNorm[item] + ESPNSubLinearNorm[item]",
+                    "    else:",
+                    "        tesESPNUnion[item] = teslaSubLinearNorm[item]",
+                    "for item in ESPNSubLinearNorm:",
+                    "    if item not in teslaSubLinearNorm:",
+                    "        tesESPNUnion[item] = ESPNSubLinearNorm[item]",
+                    "        ",
+                    "NYESPNUnion = {}",
+                    "for item in NYTimesSubLinearNorm:",
+                    "    if item in ESPNSubLinearNorm:",
+                    "        NYESPNUnion[item] = NYTimesSubLinearNorm[item] + ESPNSubLinearNorm[item]",
+                    "    else:",
+                    "        NYESPNUnion[item] = NYTimesSubLinearNorm[item]",
+                    "for item in ESPNSubLinearNorm:",
+                    "    if item not in NYTimesSubLinearNorm:",
+                    "        NYESPNUnion[item] = ESPNSubLinearNorm[item]"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeMyxkTo",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#summations",
+                    "tesNYIntSum = float(sum(tesNYIntersection.values()))",
+                    "tesESPNIntSum = float(sum(tesESPNIntersection.values()))",
+                    "NYESPNIntSum = float(sum(NYESPNIntersection.values()))",
+                    "tesNYUnSum = float(sum(tesNYUnion.values()))",
+                    "tesESPNUnSum = float(sum(tesESPNUnion.values()))",
+                    "NYESPNUnSum = float(sum(NYESPNUnion.values()))"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeBTCB3b",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "#calculate jaccard sim",
+                    "tesNYJaccard = tesNYIntSum / tesNYUnSum",
+                    "tesESPNJaccard = tesESPNIntSum / tesESPNUnSum",
+                    "NYESPNJaccard = NYESPNIntSum / NYESPNUnSum"
+                ]
+            },
+            "output": {
+                "result": "",
+                "selectedType": "Hidden",
+                "state": {},
+                "height": 34
+            },
+            "evaluatorReader": true
+        },
+        {
+            "id": "codeNuxhQn",
+            "evaluator": "IPython",
+            "type": "code",
+            "input": {
+                "body": [
+                    "print tesNYJaccard, tesESPNJaccard, NYESPNJaccard"
+                ]
+            },
+            "output": {
+                "state": {}
+            },
+            "evaluatorReader": true
+        }
+    ],
+    "tagMap": {
+        "root": [
+            "code6tFkUa",
+            "codeMLT3mE",
+            "code7h2IRi",
+            "codekKKIVL",
+            "codeJ8yRjW",
+            "codeA8Hj0B",
+            "code2DuQoa",
+            "codeX7Do8s",
+            "codeTNOzoc",
+            "codeBTMRLB",
+            "codeKIihsa",
+            "codeMyxkTo",
+            "codeBTCB3b",
+            "codeNuxhQn"
+        ]
+    },
+    "tagMap2": {
+        "initialization": [],
+        "IPython": [
+            "code6tFkUa",
+            "codeMLT3mE",
+            "code7h2IRi",
+            "codekKKIVL",
+            "codeJ8yRjW",
+            "codeA8Hj0B",
+            "code2DuQoa",
+            "codeX7Do8s",
+            "codeTNOzoc",
+            "codeBTMRLB",
+            "codeKIihsa",
+            "codeMyxkTo",
+            "codeBTCB3b",
+            "codeNuxhQn"
+        ]
+    },
+    "namespace": {}
+}
